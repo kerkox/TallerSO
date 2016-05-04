@@ -3,6 +3,9 @@
 #include <string.h>
 
 //Punto 1 programa para escribir dos archivos de forma pendeja segun omar
+//Recibir por teclado solo letras y guardarlas en un archivo A
+//Recibir por teclado solo numeros y gurdarlos en un archivo B
+//Crear un archivo C con 3 letras del File A y 2 numeros del File B
 
 int main(){
     //variable de ingreso
