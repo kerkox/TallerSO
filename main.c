@@ -10,36 +10,105 @@
 int main(){
     //variable de ingreso
     FILE *A, *B;
-    char **texto; // DOnde puedo usar MALLOC para eso haaaaa
+    char texto[100]; // DOnde puedo usar MALLOC para eso haaaaa
     char numeros[20];
-    int largo=0;
-
+    
     printf("++++++Programa Punto 1++++++\n");
     printf("\nIngresa letras por favor: ");
-    largo = scanf("%[A-z]", texto); // aqui esto si hace lo que debe o no???
-
+    scanf("%[A-z]", texto); 
 
     while(getchar()!=10){}//para liberar el buffer de entrada
-    printf("\nEl largo es: %i", largo);
 
     printf("\ningresa a ahora solo numeros: ");
     scanf ("%[0-9]", numeros);
     while(getchar()!=10){}//para liberar el buffer de entrada
-    printf("\nMucho mejor ahora: mostrando texto: %s", texto);
-    printf("\nMostrando numero %s", numeros);
+    
 
 
     getchar();
+    int x=0;
+    
+    int limpiar=0;
+    for(x;x<100;x++){
+        if(limpiar==1){
+            texto[x]=' ';
+        }
+        if(texto[x]=='\0'){
+            limpiar=1;
+        }                
+    }
+    limpiar=0;
+    x=0;
+    for(x;x<20;x++){
+        if(limpiar==1){
+            numeros[x]=' ';
+        }
+        if(numeros[x]=='\0'){
+            limpiar=1;
+        }                
+    }
+    
     //Ahora escribir en cada fichero correspondiente
     //Escribiendo el Fichero A
     A = fopen("ficheroA.txt", "w");
-    fwrite( texto, sizeof(char), sizeof(texto), A );
+//    fwrite( texto, sizeof(char), sizeof(texto), A );
+    fputs( texto, A );
     fclose(A);
     //***********************************
     //Escribiendo el Fichero B
     B = fopen("ficheroB.txt", "w");
     fputs(numeros,B);
     fclose(B);
+    //*********************************************
+    char leidoA[3];
+    char leidoB[2];
+    printf("\nAhora se comenzara a escribir el fichero C");
+    
+    printf("\nLeyendo...");
+    
+    A = NULL;
+    A = fopen("ficheroA.txt", "r");
+    if(A==NULL){
+        perror("Error al abrir el archivo");
+        
+    }else{
+        if(fgets(leidoA,4,A)!=NULL){
+            printf("\nEsto se leyo del A: %s", leidoA);
+        }
+    }
+    fclose(A);
+    
+    B=NULL;
+    B = fopen("ficheroB.txt", "r");
+    if(A==NULL){
+        perror("Error al abrir el archivo");
+        
+    }else{
+        if(fgets(leidoB,3,B)!=NULL){
+            
+        }
+    }
+    fclose(B);
+    
+    FILE * C;
+    char salidaC[5];
+    
+    for(x=0;x<5;x++){
+        if(x<3){
+        salidaC[x]=leidoA[x];
+        }
+        if(x>=3){
+            salidaC[x]=leidoB[x-3];
+        }
+    }
+    
+    
+    C = fopen("FicheroC", "w");
+    fputs(salidaC,C);
+    fclose(C);
+    
+    
+    
 
     return 0;
 
